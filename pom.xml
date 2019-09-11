@@ -9,6 +9,37 @@
 	<packaging>maven-plugin</packaging>
 
 	<name>bom-helper-maven-plugin Maven Plugin</name>
+	<description>Plugin providing some help for BOM projects.</description>
+	<url>https://github.com/commsen/bom-helper-maven-plugin</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Commsen International</name>
+		<url>http://commsen.com/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Milen Dyankov</name>
+			<url>http://milendyankov.com</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/commsen/bom-helper-maven-plugin</url>
+		<connection>scm:git:https://github.com/commsen/bom-helper-maven-plugin.git</connection>
+	</scm>
+
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/commsen/bom-helper-maven-plugin/issues</url>
+	</issueManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
