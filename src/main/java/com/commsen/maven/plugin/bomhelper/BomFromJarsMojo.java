@@ -130,15 +130,36 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 			    	dependencyManagementNode.appendChild(dependenciesNode);
 			    }
 
+			    Set<Gav> currentGavs = project.getDependencyManagement().getDependencies()
+			    		.stream()
+			    		.map(d -> {
+			    			return new Gav(d.getGroupId(), d.getArtifactId(), d.getVersion()); 
+			    		})
+			    		.collect(Collectors.toSet());
+			    
+			    boolean added = false;
+			    
 			    for (Properties p : mavenCoordinates) {
-			    	Node dependency = doc.createElement("dependency");
-			    	dependency.appendChild(createNode(doc, "groupId", p.getProperty("groupId")));
-			    	dependency.appendChild(createNode(doc, "artifactId", p.getProperty("artifactId")));
-			    	dependency.appendChild(createNode(doc, "version", p.getProperty("version")));
-			    	dependenciesNode.appendChild(dependency);
+			    	Gav gav = new Gav(p.getProperty("groupId"), p.getProperty("artifactId"), p.getProperty("version"));
+			    	if (!currentGavs.contains(gav)) {
+			    		Node dependency = doc.createElement("dependency");
+				    	dependency.appendChild(createNode(doc, "groupId", gav.g));
+				    	dependency.appendChild(createNode(doc, "artifactId", gav.a));
+				    	dependency.appendChild(createNode(doc, "version", gav.v));
+				    	dependenciesNode.appendChild(dependency);
+				    	added = true;
+			    	} else {
+				    	logger.debug("Skipping " + gav + " as it already is in dependency management!");
+			    	}
 				}
 			       
-		    	savePom(doc);
+		    	if (added) {
+		    		savePom(doc);
+		    	} else {
+		    		logger.info("Pom will not be changed. All files with Maven matada alredy have dependency management entries");
+		    	}
+			} else {
+	    		logger.info("No jar files with Maven matada were found!");
 			}
 			
 		} catch (Exception e) {
