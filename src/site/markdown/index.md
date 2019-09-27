@@ -11,9 +11,9 @@ the list list of the raw materials needed to manufacture an end product. In the 
 
 There are number of different ways to create/generate Maven BOMs. Many may already have own ways to solve the issues this plug-in trues to solve. But for those who don't have such tool, this plug-in can help with 
 
- - making sure the BOM entries are resolvable. The [`resolve` goal](/bom-helper-maven-plugin-site/resolve-mojo.html) will iterate over the list and fail the build if the BOM contains unresolvable dependency.
- - sorting the dependencies alphabetically to make it easy for humans to read the BOM. See [`sort` goal](/bom-helper-maven-plugin-site/sort-mojo.html) for details  
- - generating (or updating existing) BOM from local jar files containing Maven metadata. See [`fromJars` goal](/bom-helper-maven-plugin-site/fromJars-mojo.html) for details  
+ - making sure the BOM entries are resolvable. The [`resolve` goal](/bom-helper-maven-plugin/resolve-mojo.html) will iterate over the list and fail the build if the BOM contains unresolvable dependency.
+ - sorting the dependencies alphabetically to make it easy for humans to read the BOM. See [`sort` goal](/bom-helper-maven-plugin/sort-mojo.html) for details  
+ - generating (or updating existing) BOM from local jar files containing Maven metadata. See [`fromJars` goal](/bom-helper-maven-plugin/fromJars-mojo.html) for details  
 
 ### License
 
