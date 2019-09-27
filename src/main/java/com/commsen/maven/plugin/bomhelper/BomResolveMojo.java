@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 		name = "resolve",
 		requiresProject = true,
 		defaultPhase = LifecyclePhase.VALIDATE)
-public class BomResolveMojo extends BomHelperAbstaractMojo {
+public class BomResolveMojo extends BomHelperAbstractMojo {
 
 	private static final Logger logger = LoggerFactory.getLogger(BomResolveMojo.class);
 	

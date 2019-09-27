@@ -20,7 +20,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.w3c.dom.Document;
 
-public abstract class PomChangingAbstractMojo extends BomHelperAbstaractMojo {
+public abstract class PomChangingAbstractMojo extends BomHelperAbstractMojo {
 
 	@Parameter(
 			defaultValue = "false",

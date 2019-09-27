@@ -5,7 +5,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-public abstract class BomHelperAbstaractMojo extends AbstractMojo {
+public abstract class BomHelperAbstractMojo extends AbstractMojo {
 
 	/**
 	 * The Maven session
