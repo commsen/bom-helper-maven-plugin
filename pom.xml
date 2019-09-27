@@ -135,7 +135,39 @@
 
 			</build>
 		</profile>
-		
+		<profile>
+			<id>site</id>
+			<build>
+				<defaultGoal>clean site site:stage</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-site-plugin</artifactId>
+						<version>3.6</version>
+						<configuration>
+							<stagingDirectory>${site.dir}</stagingDirectory>
+							<skipDeploy>true</skipDeploy>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-plugin-plugin</artifactId>
+						<version>3.5</version>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.0.0-M1</version>
+						<configuration>
+						</configuration>
+					</plugin>
+				</plugins>
+			</reporting>
+		</profile>		
 		<profile>
 			<id>release</id>
 			<distributionManagement>

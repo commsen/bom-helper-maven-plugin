@@ -6,33 +6,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
-
-/*
- * Copyright 2001-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
-import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.transfer.artifact.DefaultArtifactCoordinate;
 import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
@@ -45,24 +25,13 @@ import org.slf4j.LoggerFactory;
  */
 
 @Mojo(
-		name = "resolve",		
+		name = "resolve",
+		requiresProject = true,
 		defaultPhase = LifecyclePhase.VALIDATE)
-public class BomResolveMojo extends AbstractMojo {
+public class BomResolveMojo extends BomHelperAbstaractMojo {
 
 	private static final Logger logger = LoggerFactory.getLogger(BomResolveMojo.class);
 	
-	@Component
-	private ArtifactResolver artifactResolver;
-
-	/**
-	 * The Maven session
-	 */
-	@Parameter(
-			defaultValue = "${session}",
-			readonly = true,
-			required = true)
-	protected MavenSession session;
-
 	/**
 	 * Remote repositories which will be searched for artifacts.
 	 */
@@ -70,14 +39,12 @@ public class BomResolveMojo extends AbstractMojo {
 			defaultValue = "${project.remoteArtifactRepositories}",
 			readonly = true,
 			required = true)
-	private List<ArtifactRepository> remoteRepositories;
+	protected List<ArtifactRepository> remoteRepositories;
 
-    /**
-     * POM
-     */
-    @Parameter( defaultValue = "${project}", readonly = true, required = true )
-    private MavenProject project;	
-	
+
+	@Component
+	private ArtifactResolver artifactResolver;
+
 	
 	public void execute() throws MojoExecutionException {
 		List<Dependency> bomDepenedencies =  project.getDependencyManagement().getDependencies();
@@ -100,9 +67,8 @@ public class BomResolveMojo extends AbstractMojo {
 		}
 
 		if (!failedArtifacts.isEmpty()) {
-//			failedArtifacts.stream().forEach(a -> logger.error("Failed to resolve artifact " + a));
 			throw new MojoExecutionException(
-					"The following dependencies found in <dependencyManagement> can not be resolved: \n" +
+					"The following dependencies found in <dependencyManagement> can not be resolved: \n - " +
 					failedArtifacts.stream().collect(Collectors.joining("\n - "))
 					);
 		}
