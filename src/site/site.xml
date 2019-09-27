@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/DECORATION/1.7.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd"
+	name="${project.name}">
+
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-fluido-skin</artifactId>
+		<version>1.6</version>
+	</skin>
+
+	<custom>
+		<fluidoSkin>
+			<topBarEnabled>true</topBarEnabled>
+			<topBarContainerStyle>width: 90%;</topBarContainerStyle>
+			<topBarIcon>
+				<name>BOM Helper Maven Plugin</name>
+				<href>/index.html</href>
+			</topBarIcon>
+
+			<sideBarEnabled>false</sideBarEnabled>
+			<leftColumnClass>span2</leftColumnClass>
+			<bodyColumnClass>span10</bodyColumnClass>
+
+			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+			<copyrightClass>pull-right</copyrightClass>			
+
+			<googleSearch />
+
+		</fluidoSkin>
+	</custom>
+
+	<publishDate position="right" />
+	<version position="right" />
+
+	<body>
+		<menu name="Overview">
+			<item name="Introduction" href="index.html" />
+			<item name="Goals" href="plugin-info.html" />
+		</menu>
+		<menu ref="reports" />
+	</body>
+</project>

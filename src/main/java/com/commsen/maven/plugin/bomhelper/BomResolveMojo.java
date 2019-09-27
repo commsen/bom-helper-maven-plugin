@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Goal which resolves dependencies declared in dependency management (BOM)
+ * Resolves dependencies declared in dependency management (BOM)
  */
 
 @Mojo(

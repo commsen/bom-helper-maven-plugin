@@ -19,7 +19,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Goal which resolves dependencies declared in dependency management (BOM)
+ * 
+ * Sorts alphabetically the dependencies declared in dependency management (BOM).
+ * 
  */
 
 @Mojo(

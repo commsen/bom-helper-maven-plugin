@@ -32,7 +32,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /**
- * Goal which resolves dependencies declared in dependency management (BOM)
+ * 
+ * Creates dependency management entries (BOM) from jar files stored in directory on local file system. 
+ *  
  */
 
 @Mojo(
@@ -45,7 +47,9 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 
 	
 	/**
-	 * The folder to search (recursively) for libraries to be converted to BOM dependency management entries
+	 * 
+	 * The folder to search (recursively) for libraries to be converted to dependency management entries
+	 * 
 	 */
 	@Parameter(
 			defaultValue = "${project.basedir}/lib",
@@ -54,7 +58,9 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 
 
 	/**
-	 * If true the build will fail if not all libraries found can be converted to BOM dependency management entries
+	 * 
+	 * If true the build will fail if there are libraries found that can not be converted to dependency management entries
+	 * 
 	 */
 	@Parameter(
 			defaultValue = "false",
@@ -62,7 +68,9 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 	protected boolean allOrNothing;
 
 	/**
+	 * 
 	 * Should sub-directories be recursively scanned for Jar files
+	 * 
 	 */
 	@Parameter(
 			defaultValue = "false",
@@ -70,7 +78,9 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 	protected boolean recursive;
 
 	/**
+	 * 
 	 * The maximum number of directory levels to visit
+	 * 
 	 */
 	@Parameter(
 			defaultValue = "100",

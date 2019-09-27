@@ -15,6 +15,7 @@ public abstract class BomHelperAbstractMojo extends AbstractMojo {
 			readonly = true,
 			required = true)
 	protected MavenSession session;
+	
 	/**
 	 * POM
 	 */
@@ -24,7 +25,7 @@ public abstract class BomHelperAbstractMojo extends AbstractMojo {
 			required = true)
 	protected MavenProject project;
 
-	public BomHelperAbstaractMojo() {
+	public BomHelperAbstractMojo() {
 		super();
 	}
 

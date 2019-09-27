@@ -1,0 +1,16 @@
+ul.breadcrumb {
+    background: transparent;
+}
+
+a.externalLink[href^=https] {
+    background: none; 
+    padding-right: 0px; 
+}
+a.externalLink[href^=http] {
+    background: none; 
+    padding-right: 0px; 
+}
+a.externalLink {
+    background: none; 
+    padding-right: 0px; 
+}
