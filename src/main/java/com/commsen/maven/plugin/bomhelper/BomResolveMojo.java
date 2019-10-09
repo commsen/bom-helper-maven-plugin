@@ -1,8 +1,8 @@
 package com.commsen.maven.plugin.bomhelper;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -32,8 +32,13 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 
 	private static final Logger logger = LoggerFactory.getLogger(BomResolveMojo.class);
 
-	private static final List<String> JAR_TYPES = Arrays.asList("ejb", "ejb-client", "test-jar");
+	/**
+	 * Map types to extensions
+	 */
+	@Parameter
+	protected Map<String, String> typeExtensions;
 
+	
 	/**
 	 * Remote repositories which will be searched for artifacts.
 	 */
@@ -79,7 +84,10 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 
 
 	private String typeToExtension(final String type) {
-		return (JAR_TYPES.contains(type)) ? "jar" : type;
+		if (typeExtensions == null || !typeExtensions.containsKey(type)) {
+			return type;
+		}
+		return typeExtensions.get(type);
 	}
 
 	private ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() {
