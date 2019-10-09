@@ -1,9 +1,9 @@
 package com.commsen.maven.plugin.bomhelper;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
@@ -31,7 +31,9 @@ import org.slf4j.LoggerFactory;
 public class BomResolveMojo extends BomHelperAbstractMojo {
 
 	private static final Logger logger = LoggerFactory.getLogger(BomResolveMojo.class);
-	
+
+	private static final List<String> JAR_TYPES = Arrays.asList("ejb", "ejb-client", "test-jar");
+
 	/**
 	 * Remote repositories which will be searched for artifacts.
 	 */
@@ -45,18 +47,18 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 	@Component
 	private ArtifactResolver artifactResolver;
 
-	
+
 	public void execute() throws MojoExecutionException {
 		List<Dependency> bomDepenedencies =  project.getDependencyManagement().getDependencies();
 		Set<String> failedArtifacts = new HashSet<>();
 		ProjectBuildingRequest projectBuildingRequest = newResolveArtifactProjectBuildingRequest();
-		
+
 		for (Dependency dependency : bomDepenedencies) {
 			DefaultArtifactCoordinate coordinate = new DefaultArtifactCoordinate();
 			coordinate.setGroupId(dependency.getGroupId());
 			coordinate.setArtifactId(dependency.getArtifactId());
 			coordinate.setVersion(dependency.getVersion());
-			coordinate.setExtension(dependency.getType());
+			coordinate.setExtension(typeToExtension(dependency.getType()));
 			coordinate.setClassifier(dependency.getClassifier());
 			try {
 				artifactResolver.resolveArtifact(projectBuildingRequest, coordinate);
@@ -69,12 +71,16 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 		if (!failedArtifacts.isEmpty()) {
 			throw new MojoExecutionException(
 					"The following dependencies found in <dependencyManagement> can not be resolved: \n - " +
-					failedArtifacts.stream().collect(Collectors.joining("\n - "))
+							String.join("\n - ", failedArtifacts)
 					);
 		}
-		
+
 	}
 
+
+	private String typeToExtension(final String type) {
+		return (JAR_TYPES.contains(type)) ? "jar" : type;
+	}
 
 	private ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() {
 		ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
