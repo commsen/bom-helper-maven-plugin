@@ -104,7 +104,7 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 				
 				missingMavenData.forEach(f -> logger.warn("File `" + f + "` does not contain Maven metadata and can not be automatically added to dependency management entries!"));
 				if (allOrNothing) {
-					throw new MojoExecutionException("Property `allOrNoting` is `true` but some jars could not be converted to dependency management entries!");
+					throw new MojoExecutionException("Property `allOrNothing` is `true` but some jars could not be converted to dependency management entries!");
 				}
 			}
 			
@@ -156,7 +156,7 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 		    	if (added) {
 		    		savePom(doc);
 		    	} else {
-		    		logger.info("Pom will not be changed. All files with Maven matada alredy have dependency management entries");
+		    		logger.info("Pom will not be changed. All files with Maven matada already have dependency management entries");
 		    	}
 			} else {
 	    		logger.info("No jar files with Maven matada were found!");
