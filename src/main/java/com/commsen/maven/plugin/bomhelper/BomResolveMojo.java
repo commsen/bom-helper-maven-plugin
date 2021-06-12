@@ -62,11 +62,11 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 			return;
 		}
 
-		List<Dependency> bomDepenedencies =  dependencyManagement.getDependencies();
+		List<Dependency> bomDependencies =  dependencyManagement.getDependencies();
 		Set<String> failedArtifacts = new HashSet<>();
 		ProjectBuildingRequest projectBuildingRequest = newResolveArtifactProjectBuildingRequest();
 
-		for (Dependency dependency : bomDepenedencies) {
+		for (Dependency dependency : bomDependencies) {
 			DefaultArtifactCoordinate coordinate = new DefaultArtifactCoordinate();
 			coordinate.setGroupId(dependency.getGroupId());
 			coordinate.setArtifactId(dependency.getArtifactId());

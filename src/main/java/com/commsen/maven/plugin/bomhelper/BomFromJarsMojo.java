@@ -104,7 +104,7 @@ public class BomFromJarsMojo extends PomChangingAbstractMojo {
 				
 				missingMavenData.forEach(f -> logger.warn("File `" + f + "` does not contain Maven metadata and can not be automatically added to dependency management entries!"));
 				if (allOrNothing) {
-					throw new MojoExecutionException("Property `allOrNoting` is `true` but some jars could not be converted to dependency management entires!");
+					throw new MojoExecutionException("Property `allOrNoting` is `true` but some jars could not be converted to dependency management entries!");
 				}
 			}
 			

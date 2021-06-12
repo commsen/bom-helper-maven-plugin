@@ -99,7 +99,7 @@ public class BomSortMojo extends PomChangingAbstractMojo {
 		    savePom(doc);
 
 		} catch (Exception e) {
-			throw new MojoExecutionException("An error occured while sorting BOM's artifacts", e);
+			throw new MojoExecutionException("An error occurred while sorting BOM's artifacts", e);
 		}
 	}
 
