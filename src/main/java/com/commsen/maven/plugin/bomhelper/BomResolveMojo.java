@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -54,7 +55,14 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 
 
 	public void execute() throws MojoExecutionException {
-		List<Dependency> bomDepenedencies =  project.getDependencyManagement().getDependencies();
+
+		DependencyManagement dependencyManagement = project.getDependencyManagement();
+		if (dependencyManagement == null) {
+			logger.info("No BOM dependencies found! Nothing to resolve!");
+			return;
+		}
+
+		List<Dependency> bomDepenedencies =  dependencyManagement.getDependencies();
 		Set<String> failedArtifacts = new HashSet<>();
 		ProjectBuildingRequest projectBuildingRequest = newResolveArtifactProjectBuildingRequest();
 
