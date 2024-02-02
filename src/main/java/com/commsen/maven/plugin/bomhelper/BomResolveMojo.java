@@ -76,7 +76,7 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 			try {
 				artifactResolver.resolveArtifact(projectBuildingRequest, coordinate);
 			} catch (ArtifactResolverException e) {
-				failedArtifacts.add(dependency.toString());
+				failedArtifacts.add(coordinate.toString());
 				logger.error("Failed to resolve artifact " + coordinate, e);
 			}
 		}
