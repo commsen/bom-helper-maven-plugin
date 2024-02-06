@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.commsen.maven.plugin.bomhelper"}];updateSearchResults();
