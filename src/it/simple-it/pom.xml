@@ -4650,7 +4650,7 @@
       <dependency>
         <artifactId>com.liferay.portal.kernel</artifactId>
         <groupId>com.liferay.portal</groupId>
-        <version>4.13.0</version>
+        <version>7.3.0</version>
       </dependency>
       <dependency>
         <artifactId>com.liferay.portal.impl</artifactId>
