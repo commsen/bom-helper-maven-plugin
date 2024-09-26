@@ -2,9 +2,10 @@ package com.commsen.maven.plugin.bomhelper;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
+import org.apache.maven.artifact.handler.ArtifactHandler;
+import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.DependencyManagement;
@@ -34,12 +35,12 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 	private static final Logger logger = LoggerFactory.getLogger(BomResolveMojo.class);
 
 	/**
-	 * Map types to extensions
+	 * ArtifactHandlerManager to get artifact handler for the dependency type.
 	 */
-	@Parameter
-	protected Map<String, String> typeExtensions;
+	@Component
+	protected ArtifactHandlerManager artifactHandlerManager;
 
-	
+
 	/**
 	 * Remote repositories which will be searched for artifacts.
 	 */
@@ -71,8 +72,9 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 			coordinate.setGroupId(dependency.getGroupId());
 			coordinate.setArtifactId(dependency.getArtifactId());
 			coordinate.setVersion(dependency.getVersion());
-			coordinate.setExtension(typeToExtension(dependency.getType()));
-			coordinate.setClassifier(dependency.getClassifier());
+			ArtifactHandler handler = artifactHandlerManager.getArtifactHandler(dependency.getType());
+			coordinate.setExtension(handler.getExtension());
+			coordinate.setClassifier(handler.getClassifier());
 			try {
 				artifactResolver.resolveArtifact(projectBuildingRequest, coordinate);
 			} catch (ArtifactResolverException e) {
@@ -85,17 +87,9 @@ public class BomResolveMojo extends BomHelperAbstractMojo {
 			throw new MojoExecutionException(
 					"The following dependencies found in <dependencyManagement> can not be resolved: \n - " +
 							String.join("\n - ", failedArtifacts)
-					);
+			);
 		}
 
-	}
-
-
-	private String typeToExtension(final String type) {
-		if (typeExtensions == null || !typeExtensions.containsKey(type)) {
-			return type;
-		}
-		return typeExtensions.get(type);
 	}
 
 	private ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() {
